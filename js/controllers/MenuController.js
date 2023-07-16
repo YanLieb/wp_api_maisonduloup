@@ -17,8 +17,7 @@ export default class MenuController {
         menuElements.forEach(menuElement => {
             const menuListHTMLElement = document.createElement('li');
             menuListHTMLElement.classList.add('menu-item');
-            menuListHTMLElement.innerHTML = `<a href="${menuElement.url}/?p=${menuElement.object_id}">${menuElement.title}</a>`;
-
+            menuListHTMLElement.innerHTML = `<a href="${menuElement.url}">${menuElement.title}</a>`;
             this.menuHTMLElement.appendChild(menuListHTMLElement);
         })
     }
