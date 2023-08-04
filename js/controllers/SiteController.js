@@ -1,21 +1,28 @@
 import Site from '../classes/Site.js';
-import Medias from '../classes/Medias.js';
 
 export default class SiteController {
     constructor() {
         this.site = new Site();
-        this.medias = new Medias();
     }
 
     async getSite() {
         const site = await this.site.fetchSite();
-        console.log(site.name);
-        console.log(site.description);
-        console.log(site.home);
-        console.log(site.site_icon_url);
-
         const header = document.querySelector('header');
         const head = document.querySelector('head');
+
+        async function getLogo() {
+            const response = await fetch(`https://maisonduloup.org/wp-json/wp/v2/media/${site.site_logo}`);
+            const logo = await response.json();
+            const header = document.querySelector('header');
+            const headerLogo = document.createElement('img');
+            headerLogo.setAttribute('id', 'site_logo')
+            headerLogo.setAttribute('src', logo.guid.rendered);
+            headerLogo.setAttribute('alt', logo.alt_text);
+            header.appendChild(headerLogo);
+        }
+        if (site.site_logo !== 0) {
+            getLogo();
+        }
 
         const siteName = document.createElement('h1');
         const siteNameLink = document.createElement('a');
@@ -35,21 +42,5 @@ export default class SiteController {
         siteIcon.setAttribute('rel', 'shortcut icon');
         siteIcon.setAttribute('href', site.site_icon_url);
         head.appendChild(siteIcon);
-    }
-
-    async getLogo() {
-        const medias = await this.medias.fetchMedias();
-        const site = await this.site.fetchSite();
-        let logo = '';
-        medias.forEach(media => {
-            if (media.id == site.site_logo) logo = media;
-        })
-
-        const header = document.querySelector('header');
-        const headerLogo = document.createElement('img');
-        headerLogo.setAttribute('id', 'site_logo')
-        headerLogo.setAttribute('src', logo.guid.rendered);
-        headerLogo.setAttribute('alt', logo.alt_text);
-        header.appendChild(headerLogo);
     }
 }

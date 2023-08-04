@@ -1,4 +1,4 @@
-export default class Medias {
+export default class Media {
     constructor() {
         this.baseURL = 'https://maisonduloup.org/wp-json/wp/v2/media'
     }

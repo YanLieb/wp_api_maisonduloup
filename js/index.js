@@ -6,6 +6,5 @@ const site = new SiteController();
 const menu = new MenuController();
 const pageContent = new PageController();
 site.getSite();
-site.getLogo();
 menu.getMenu();
-pageContent.getHomePageContent();
+pageContent.getHomepageContent();

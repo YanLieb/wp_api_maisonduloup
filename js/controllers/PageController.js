@@ -1,8 +1,10 @@
 import Page from '../classes/Page.js';
+import PostController from './PostController.js';
 
 export default class PageController {
     constructor() {
         this.pages = new Page();
+        this.posts = new PostController();
         this.homeHTMLElement = this.createHomeHTMLElement();
     }
 
@@ -12,7 +14,7 @@ export default class PageController {
         return document.querySelector('body').appendChild(homeHTMLElement);
     }
 
-    async getHomePageContent() {
+    async getHomepageContent() {
         const pages = await this.pages.fetchPageContent();
 
         // identify homepage
@@ -28,5 +30,7 @@ export default class PageController {
                     this.homeHTMLElement.appendChild(homeSectionElement);
                 }
             })
+
+        this.posts.getHomepagePosts();
     }
 }
