@@ -29,8 +29,6 @@ register_nav_menus(
 );
 
 add_theme_support('custom-logo', array(
-    'height'      => 428,
-    'width'       => 600,
     'flex-height' => true,
     'flex-width'  => true,
     'header-text' => array('site-title', 'site-description'),
